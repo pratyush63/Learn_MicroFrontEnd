@@ -1,3 +1,6 @@
+//This is common as index.html needed both in production and development
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
    module: {
        rules: [
@@ -13,6 +16,11 @@ module.exports = {
             },
         },
 
-       ]
-   }
+       ],
+   },
+   plugins: [
+    new HtmlWebpackPlugin({
+        template: './public/index.html'
+    }),
+]
 };
