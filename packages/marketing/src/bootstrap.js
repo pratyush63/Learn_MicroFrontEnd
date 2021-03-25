@@ -10,7 +10,7 @@ const mount= (el, { onNavigate, defaultHistory, initialPath }) => {
     const history = defaultHistory || createMemoryHistory({
      initialEntries: [initialPath],
     });
-    //Whenever some navigation occurs this history object is going to call any function that we have provided
+    //Whenever some navigation occur this history object is going to call any function that we have provided
     if(onNavigate){
     history.listen(onNavigate);
     }
