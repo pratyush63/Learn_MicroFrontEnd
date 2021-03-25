@@ -9,7 +9,7 @@ export default ({onSignIn}) => {
     useEffect(() => {
         const { onParentNavigate } = mount(ref.current, {
             initialPath: history.location.pathname,
-        //the listen function which called the onNavigate function returns an object argument which has the path name, path key etc as properties
+        //the listen function which called the onNavigate fn returns an object argument which has the path name, path key etc as properties
             onNavigate: ({ pathname: nextPathname }) =>{
                 //console.log('The container noticed navigation in marketing (means memoryHistory of AuthApp is updated), so update BrowserHistory of container');
                 const { pathname } = history.location;//Address of the current location
