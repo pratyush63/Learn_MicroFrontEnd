@@ -4,10 +4,12 @@ import { createMemoryHistory, createBrowserHistory } from 'history';
 import App from './App';
 
 //Mount function to start up the app
-const mount= (el, { onNavigate, deafultHistory }) => {
+const mount= (el, { onNavigate, defaultHistory, initialPath }) => {
     
     //IF browserHistory is created then use it else create a memory history 
-    const history = defaultHistory || createMemoryHistory();
+    const history = defaultHistory || createMemoryHistory({
+     initialEntries: [initialPath],
+    });
     //Whenever some navigation occurs this history object is going to call any function that we have provided
     if(onNavigate){
     history.listen(onNavigate);
@@ -35,7 +37,7 @@ if(process.env.NODE_ENV === 'development'){
     
     //Create Browser history if app runs in isolation in development
     if(devRoot){
-        mount(devRoot, { deafultHistory: createBrowserHistory() });
+        mount(devRoot, { defaultHistory: createBrowserHistory() });
     }
 }
 
