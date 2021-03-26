@@ -2,13 +2,13 @@ import React, {lazy, Suspense, useState, useEffect} from 'react';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
 
+import { createBrowserHistory } from 'history';
 import Header from './components/Header';
 import Progress from './components/Progress';
 const MarketingLazy= lazy(() => import('./components/MarketingApp'));
 const AuthLazy= lazy(() => import('./components/AuthApp'));
 const DashboardLazy= lazy(() => import('./components/DashboardApp'));
 
-import { createBrowserHistory } from 'history';
 
 const generateClassName = createGenerateClassName({
 productionPrefix: 'co',
@@ -17,14 +17,15 @@ productionPrefix: 'co',
 
 const history= createBrowserHistory();
 
-useEffect(()=>{
- if(isSignedIn){
-     history.push('/dashboard');
- }
-},[isSignedIn]);
-
 export default () => {
     const [isSignedIn, setIsSignedIn] = useState(false);
+
+    useEffect(()=>{
+        if(isSignedIn){
+            history.push('/dashboard');
+        }
+       },[isSignedIn]);
+       
     return (
     <Router history={history}> 
         <StylesProvider generateClassName={generateClassName}>
@@ -37,6 +38,7 @@ export default () => {
                         </Route>
                         <Route path= "/dashboard">
                          {!isSignedIn && <Redirect to="/" /> }
+                         <DashboardLazy />
                         </Route>
                         <Route path= "/" component={MarketingLazy} /> 
                     </Switch>
